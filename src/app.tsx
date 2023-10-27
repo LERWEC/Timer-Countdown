@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './assets/icons/logo.svg';
-import {SApp, SHeader, SLink, SLogo} from "./assets/styles/app.styles";
+import Timer from './components/timer';
+import { SButton, STime, baseTheme } from './assets/styles/style';
+import { useCallback, useEffect, useMemo, useState, memo } from 'react';
+
+export type TimeOptionsStatus = 'timer' | 'countdown' | 'main';
 
 function App() {
+    const [timeOptions, setTimerOptions] = useState<TimeOptionsStatus>('main');
+    const handleUpdateTimeOptionsStatus = useCallback((value: TimeOptionsStatus) => {
+        setTimerOptions(value);
+    }, []);
+
     return (
-        <SApp>
-            <SHeader>
-                <SLogo src={logo} alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <SLink
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </SLink>
-            </SHeader>
-        </SApp>
+        <div>
+            {timeOptions === 'main' ? (
+                <STime>
+                    <SButton colorTimerButton={baseTheme.based} onClick={() => handleUpdateTimeOptionsStatus('timer')}>
+                        Timer
+                    </SButton>
+
+                    <SButton
+                        colorTimerButton={baseTheme.based}
+                        onClick={() => handleUpdateTimeOptionsStatus('countdown')}
+                    >
+                        Countdown
+                    </SButton>
+                </STime>
+            ) : (
+                <div>
+                    <SButton colorTimerButton={baseTheme.based} onClick={() => handleUpdateTimeOptionsStatus('main')}>
+                        Go back
+                    </SButton>
+                    <Timer timeOptions={timeOptions} />
+                </div>
+            )}
+        </div>
     );
 }
 
