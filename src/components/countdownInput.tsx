@@ -38,7 +38,7 @@ function CountdownInput({ setCounterMseconds }: Props) {
                       }
                     : {
                           min: givenTime.min,
-                          sec: Number(valueTime) > 60 ? 60 : valueTime,
+                          sec: Number(valueTime) > 60 ? 60 : givenTime.min === 720 ? 0 : valueTime,
                           slider: Number(givenTime.min) * 60 + Number(valueTime),
                       }
             );
