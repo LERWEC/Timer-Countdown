@@ -23,10 +23,6 @@ function CountdownInput({ setCounterMseconds }: Props) {
             msc = Number(value) * 100;
         } else {
             const valueTime = Number(value) < 0 ? 0 : value;
-            msc =
-                typeTime === 'min'
-                    ? (Number(valueTime) * 60 + Number(givenTime.sec)) * 100
-                    : (Number(givenTime.min) * 60 + Number(valueTime)) * 100;
             setGivenTime(
                 typeTime === 'min'
                     ? {
@@ -40,7 +36,14 @@ function CountdownInput({ setCounterMseconds }: Props) {
                           slider: Number(givenTime.min) * 60 + Number(valueTime),
                       }
             );
+            msc =
+                typeTime === 'min'
+                    ? (Number(Number(valueTime) > 720 ? 720 : valueTime) * 60 + Number(givenTime.sec)) * 100
+                    : (Number(givenTime.min) * 60 +
+                          Number(Number(valueTime) > 60 ? 60 : givenTime.min === 720 ? 0 : valueTime)) *
+                      100;
         }
+
         setCounterMseconds(msc);
     };
 
