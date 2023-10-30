@@ -54,13 +54,13 @@ function Timer(props: ITimerProps) {
                         setMseconds(prev => prev + 10);
                     }, 100);
                 } else {
-                    if (mseconds === 0){
+                    if (mseconds === 0) {
                         setMseconds(counterMseconds);
                         startTime.current = counterMseconds;
-                    } 
-                    
+                    }
+
                     timerId = setInterval(() => {
-                        setMseconds(prev => {    
+                        setMseconds(prev => {
                             if (prev === 0) {
                                 handleUpdateTimerStatus('reset');
                                 audio.play();
@@ -69,7 +69,7 @@ function Timer(props: ITimerProps) {
                             return prev - 10;
                         });
                     }, 100);
-                    setCounterMseconds(0);   
+                    setCounterMseconds(0);
                 }
                 break;
 

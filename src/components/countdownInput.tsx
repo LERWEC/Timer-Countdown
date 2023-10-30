@@ -13,22 +13,20 @@ function CountdownInput({ setCounterMseconds }: Props) {
     });
 
     const onChengeTime = (value: string, typeTime: string) => {
-        let msc = 0
+        let msc = 0;
         if (typeTime === 'slider') {
-            
             setGivenTime({
                 min: Math.floor(Number(value) / 60),
                 sec: Math.floor(Number(value) - Math.floor(Number(value) / 60) * 60),
                 slider: Number(value),
             });
-            msc = Number(value)*100;
-            
+            msc = Number(value) * 100;
         } else {
             const valueTime = Number(value) < 0 ? 0 : value;
             msc =
                 typeTime === 'min'
                     ? (Number(valueTime) * 60 + Number(givenTime.sec)) * 100
-                    : (Number(givenTime.min) * 60 + Number(valueTime)) * 100; 
+                    : (Number(givenTime.min) * 60 + Number(valueTime)) * 100;
             setGivenTime(
                 typeTime === 'min'
                     ? {
